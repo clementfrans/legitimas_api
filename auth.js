@@ -2,8 +2,6 @@
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
-const SECRET_KEY = (process.env.JWT_SECRET_KEY) ? process.env.JWT_SECRET_KEY : process.env.AUTH_SECRET_KEY;
-
 // [SECTION] JSON WEB TOKENS
 // TOKEN CREATION
 module.exports.createAccessToken = (user) => {
