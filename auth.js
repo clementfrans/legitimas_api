@@ -12,7 +12,7 @@ module.exports.createAccessToken = (user) => {
     email: user.email,
     isAdmin: user.isAdmin,
   };
-  return jwt.sign(data, process.env.SECRET_KEY, {});
+  return jwt.sign(data, SECRET_KEY, {});
 };
 
 // TOKEN VERIFICATION AND DECRYPTION
@@ -29,7 +29,7 @@ module.exports.verify = (req, res, next) => {
 
     jwt.verify(
       token, 
-      process.env.SECRET_KEY, 
+      SECRET_KEY, 
       function (err, decodedToken) {
       if (err) {
         return res.status(403).send({
