@@ -58,13 +58,13 @@ module.exports.loginUser = (req, res) => {
 					} else {
 						return res
 							.status(401)
-							.send({message: "Incorrect email or password"});
+							.send({message: "Email and password do not match"});
 					}
 				}
 			})
 			.catch((error) => errorHandler(error, req, res));
 	} else {
-		return res.status(400).send({message: "Invalid email format"});
+		return res.status(400).send({message: "Invalid Email"});
 	}
 };
 
@@ -112,7 +112,6 @@ module.exports.updatePassword = (req, res) => {
 	return User.findByIdAndUpdate(id, updateData, {new: true})
 		.then((updatedUser) => {
 			if (!updatedUser) {
-                console.log("line 119");
 				return res.status(404).send({
                     error: "User not found"
                 });
