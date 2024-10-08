@@ -21,3 +21,8 @@ router.patch("/update-password", verify, userController.updatePassword);
 // EXPORT AS MODULE
 module.exports = router;
 
+// ENV CONTENT
+// PORT=4000
+// AUTH_SECRET_KEY=ECommerceAPI
+// JWT_SECRET_KEY=ECommerceAPI
+// MONGODB_STRING='mongodb+srv://capstone2delossantosdelrosario:admin1234@cluster0.i6dj2.mongodb.net/e-commerce-api?retryWrites=true&w=majority&appName=Cluster0'
