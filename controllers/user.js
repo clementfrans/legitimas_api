@@ -89,7 +89,7 @@ module.exports.updateUserAsAdmin = (req, res) => {
         isAdmin: true
     }
 
-	return Course.findByIdAndUpdate(id, updateData, {new: true})
+	return User.findByIdAndUpdate(id, updateData, {new: true})
 		.then((updatedUser) => {
 			if (!updatedUser) {
 				return res.status(404).send({error: "User not found"});
