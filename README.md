@@ -17,19 +17,19 @@
 
 ## Features:
 
-### Features by Del Rosario, Arnilo
+**Features by Del Rosario, Arnilo**
 
-### User Resources:
+**User Resources:**
 1. User registration
 2. User authentication
 3. Set user as admin (Admin only)
 4. Retrieve User Details
 5. Update Password
 
-### Product Resources:
+**Product Resources:**
 1. Create Product (Admin Only)
 
-### Features by Delos Santos, Clement Francis
+**Features by Delos Santos, Clement Francis**
 1. Cart Resources:
 2. Get User's Cart
 3. Add to Cart
@@ -39,7 +39,7 @@
 7. Remove products from cart
 8. Clear Cart
 
-### Order Resources:
+**Order Resources:**
 1. Non-admin User checkout (Create Order)
 2. Retrieve authenticated user's orders
 3. Retrieve all orders (Admin only)
