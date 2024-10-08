@@ -56,12 +56,12 @@ module.exports.getProduct = (req, res) => {
 
 
 
-module.exports.productFunction03 = (req, res) => {};
+// module.exports.productFunction03 = (req, res) => {};
 
-module.exports.productFunction04 = (req, res) => {};
+// module.exports.productFunction04 = (req, res) => {};
 
-module.exports.productFunction05 = (req, res) => {};
+// module.exports.productFunction05 = (req, res) => {};
 
-module.exports.productFunction06 = (req, res) => {};
+// module.exports.productFunction06 = (req, res) => {};
 
-module.exports.productFunction07 = (req, res) => {};
+// module.exports.productFunction07 = (req, res) => {};
