@@ -24,15 +24,6 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 
-// SESSION CONFIGURATION
-app.use(
-	session({
-		secret: process.env.CLIENT_SECRET,
-		resave: false,
-		saveUninitialized: false,
-	})
-);
-
 // ROUTES CONFIGURATON
 app.use("/users", userRoutes);
 
