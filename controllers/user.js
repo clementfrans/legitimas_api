@@ -83,7 +83,23 @@ module.exports.retrieveUserDetails = (req, res) => {
 };
 
 module.exports.updateUserAsAdmin = (req, res) => {
-    
+	const {id} = req.params;
+
+    const updateData = {
+        isAdmin: true;
+    }
+
+	return Course.findByIdAndUpdate(id, updateData, {new: true})
+		.then((updatedUser) => {
+			if (!updatedUser) {
+				return res.status(404).send({error: "User not found"});
+			} else {
+				return res.status(200).send({
+					updatedUser
+				});
+			}
+		})
+		.catch((error) => errorHandler(error, req, res));
 };
 
 module.exports.updatePassword = (req, res) => {
