@@ -28,3 +28,5 @@ const userSchema = new mongoose.Schema({
     required: [true, "Mobile Number is Required"],
   },
 });
+
+module.exports = mongoose.model('User', userSchema)
