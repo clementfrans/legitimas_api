@@ -1,7 +1,5 @@
 // DEPENDENCIES
 const Product = require("../models/Product");
-const bcrypt = require("bcryptjs");
-const auth = require("../auth");
 const { errorHandler } = require("../auth");
 
 // MIDDLEWARES
@@ -12,14 +10,21 @@ module.exports.createProduct = (req, res) => {
     description: req.body.description,
     price: req.body.price,
   });
+
+  newProduct
+    .save()
+    .then((result) => {
+      return res.status(201).send(result);
+    })
+    .catch((error) => errorHandler(error, req, res));
 };
 
 // RETRIEVE ALL PRODUCTS (/ALL)
 module.exports.getAllProducts = (req, res) => {
-  return Course.find({})
+  return Product.find({})
     .then((result) => {
       if (result.length > 0) {
-        return res.status(200).send({ result });
+        return res.status(200).send(result);
       } else {
         return res.status(404).send({ message: "No Products Found" });
       }
@@ -82,31 +87,36 @@ module.exports.archiveProduct = (req, res) => {
         isActive: false
     };
 
-    const isArchived = Product.find({ id: productId, isActive: false })
-
-    // in case of error, change to isArchived.length
-    if (isArchived) {
+    Product.findById(productId)
+    .then((foundProduct) => {
+      if (foundProduct === null) {
+        return res.status(404).send({
+            error: "Product not found"
+        });
+      } 
+      else if (!foundProduct.isActive) {
         return res.status(200).send({
             message: "Product already archived",
-            archivedProduct: isArchived
-        });
-    }
-    else {
-        return Product.findByIdAndUpdate(productId, updateData, { new: true })
-            .then((updatedProduct) => {
-                if (!updatedProduct) {
-                    return res.status(404).send({
-                        error: "Product not found"
-                    });
-                } else {
-                    return res.status(200).send({
-                        success: true,
-                        message: "Product updated successfully"
-                    });
-                }
-            })
-            .catch((err) => errHandler(err, req, res));
-    }
+            archivedProduct: foundProduct
+        })
+      }
+      else {
+         
+        return Product.findByIdAndUpdate(
+            productId,
+            updateData,
+            {new: true}
+        )
+        .then(
+            res.status(200).send({
+            success: true,
+            message: "Product archived successfully"
+        }));
+      }
+    })
+    .catch((error) => errorHandler(error, req, res));
+
+    
 };
 
 module.exports.activateProduct = (req, res) => {
@@ -116,29 +126,34 @@ module.exports.activateProduct = (req, res) => {
         isActive: true
     };
 
-    const isActive = Product.find({ id: productId, isActive: true })
-
-    // in case of error, change to isActive.length
-    if (isActive) {
-        return res.status(200).send({
-            message: "Product already archived",
-            archivedProduct: isActive
+    Product.findById(productId)
+    .then((foundProduct) => {
+      if (foundProduct === null) {
+        return res.status(404).send({
+            error: "Product not found"
         });
-    }
-    else {
-        return Product.findByIdAndUpdate(productId, updateData, { new: true })
-            .then((updatedProduct) => {
-                if (!updatedProduct) {
-                    return res.status(404).send({
-                        error: "Product not found"
-                    });
-                } else {
-                    return res.status(200).send({
-                        success: true,
-                        message: "Product updated successfully"
-                    });
-                }
-            })
-            .catch((err) => errHandler(err, req, res));
-    }
+      } 
+      else if (foundProduct.isActive) {
+        return res.status(200).send({
+            message: "Product already active",
+            activateProduct: foundProduct
+        })
+      }
+      else {
+         
+        return Product.findByIdAndUpdate(
+            productId,
+            updateData,
+            {new: true}
+        )
+        .then(
+            res.status(200).send({
+            success: true,
+            message: "Product activated successfully"
+        }));
+      }
+    })
+    .catch((error) => errorHandler(error, req, res));
+
+    
 };
