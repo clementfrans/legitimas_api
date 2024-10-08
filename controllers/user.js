@@ -53,7 +53,6 @@ module.exports.loginUser = (req, res) => {
 					);
 					if (isPasswordCorrect) {
 						return res.status(200).send({
-							message: "User logged in successfully",
 							access: auth.createAccessToken(result),
 						});
 					} else {
