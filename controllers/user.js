@@ -7,6 +7,11 @@ const {errorHandler} = require("../auth");
 // MIDDLEWARES
 module.exports.registerUser = (req, res) => {
     
+    return result
+    .then(
+        res.status()
+    )
+
 };
 
 module.exports.loginUser = (req, res) => {
