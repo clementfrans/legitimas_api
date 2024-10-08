@@ -86,7 +86,7 @@ module.exports.updateUserAsAdmin = (req, res) => {
 	const {id} = req.params;
 
     const updateData = {
-        isAdmin: true;
+        isAdmin: true
     }
 
 	return Course.findByIdAndUpdate(id, updateData, {new: true})
