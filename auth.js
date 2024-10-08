@@ -2,6 +2,8 @@
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
+const SECRET_KEY = (process.env.AUTH_SECRET_KEY) ? process.env.AUTH_SECRET_KEY : process.env.JWT_SECRET_KEY;
+
 // [SECTION] JSON WEB TOKENS
 // TOKEN CREATION
 module.exports.createAccessToken = (user) => {
@@ -10,7 +12,7 @@ module.exports.createAccessToken = (user) => {
     email: user.email,
     isAdmin: user.isAdmin,
   };
-  return jwt.sign(data, process.env.AUTH_SECRET_KEY, {});
+  return jwt.sign(data, process.env.SECRET_KEY, {});
 };
 
 // TOKEN VERIFICATION AND DECRYPTION
@@ -27,7 +29,7 @@ module.exports.verify = (req, res, next) => {
 
     jwt.verify(
       token, 
-      process.env.AUTH_SECRET_KEY, 
+      process.env.SECRET_KEY, 
       function (err, decodedToken) {
       if (err) {
         return res.status(403).send({
