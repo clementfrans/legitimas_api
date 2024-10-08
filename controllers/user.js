@@ -70,7 +70,16 @@ module.exports.loginUser = (req, res) => {
 };
 
 module.exports.retrieveUserDetails = (req, res) => {
-    
+	return User.findById(req.user.id)
+		.then((result) => {
+			if (result) {
+				result.password = "";
+				return res.status(200).send(result);
+			} else {
+				return res.status(404).send({message: "User not found"});
+			}
+		})
+		.catch((error) => errorHandler(error, req, res));
 };
 
 module.exports.updateUserAsAdmin = (req, res) => {
