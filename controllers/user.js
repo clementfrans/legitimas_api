@@ -73,7 +73,7 @@ module.exports.retrieveUserDetails = (req, res) => {
 		.then((result) => {
 			if (result) {
 				result.password = "";
-				return res.status(200).send(result);
+				return res.status(200).send({user: result});
 			} else {
 				return res.status(404).send({message: "User not found"});
 			}
