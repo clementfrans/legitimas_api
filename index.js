@@ -2,8 +2,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-const passport = require("passport");
-const session = require("express-session");
 
 // ROUTES
 const userRoutes = require("./routes/user");
@@ -26,6 +24,13 @@ app.use(cors(corsOptions));
 
 // ROUTES CONFIGURATON
 app.use("/users", userRoutes);
+
+mongoose.connect(process.env.MONGODB_STRING);
+
+const db = mongoose.connection;
+
+db.on("error", console.error.bind(console, "connection error"));
+db.once("open", () => console.log("Now connected to MongoDB Atlas"));
 
 // SERVER START
 if (require.main === module) {

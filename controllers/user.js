@@ -104,13 +104,16 @@ module.exports.updateUserAsAdmin = (req, res) => {
 
 module.exports.updatePassword = (req, res) => {
 
+    const {id} = req.user;
     const updateData = {
-        password: bcrypt.hashSync(req.body.password, 10)
+        password: bcrypt.hashSync(req.body.newPassword, 10)
     }
+
 
 	return User.findByIdAndUpdate(id, updateData, {new: true})
 		.then((updatedUser) => {
 			if (!updatedUser) {
+                console.log("line 119");
 				return res.status(404).send({
                     error: "User not found"
                 });

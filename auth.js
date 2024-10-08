@@ -10,7 +10,7 @@ module.exports.createAccessToken = (user) => {
     email: user.email,
     isAdmin: user.isAdmin,
   };
-  return jwt.sign(data, process.env.JWT_SECRET_KEY, {});
+  return jwt.sign(data, process.env.AUTH_SECRET_KEY, {});
 };
 
 // TOKEN VERIFICATION AND DECRYPTION
@@ -25,7 +25,10 @@ module.exports.verify = (req, res, next) => {
     token = token.slice(7, token.length);
     console.log(token);
 
-    jwt.verify(token, process.env.JWT_SECRET_KEY, function (err, decodedToken) {
+    jwt.verify(
+      token, 
+      process.env.AUTH_SECRET_KEY, 
+      function (err, decodedToken) {
       if (err) {
         return res.status(403).send({
           auth: "Failed",
@@ -36,7 +39,7 @@ module.exports.verify = (req, res, next) => {
         console.log(decodedToken);
 
         req.user = decodedToken;
-
+        req.password = req.body.password;
         next();
       }
     });
