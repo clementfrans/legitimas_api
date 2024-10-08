@@ -14,7 +14,7 @@ router.get("/details", verify, userController.retrieveUserDetails);
 
 router.patch("/:id/set-as-admin", verify, verifyAdmin, userController.updateUserAsAdmin);
 
-router.patch("/updatepassword", verify, userController.updatePassword);    
+router.patch("/update-password", verify, userController.updatePassword);    
 
 // EXPORT AS MODULE
 module.exports = router;
