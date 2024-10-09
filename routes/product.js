@@ -9,6 +9,8 @@ router.post("/", verify, verifyAdmin, productController.createProduct);
 router.get("/all", verify, verifyAdmin, productController.getAllProducts);
 router.get("/active", productController.getAllActiveProducts);
 router.get("/:productId", productController.getProduct);
+
+// ROUTES FOR PRODUCT
 router.patch(
   "/:productId/update",
   verify,
@@ -28,4 +30,8 @@ router.patch(
   productController.activateProduct
 );
 
+router.post("/search-by-name", productController.searchProductByName);
+router.post("/search-by-price", productController.searchProductByPrice);
+
+// THIS SHOULD ALWAYS BE AT THE END OF THE CODE
 module.exports = router;
