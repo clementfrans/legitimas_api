@@ -6,6 +6,7 @@ const cors = require("cors");
 // ROUTES
 const userRoutes = require("./routes/user");
 const productRoutes = require("./routes/product");
+const cartRoutes = require("./routes/cart");
 
 // APP
 const app = express();
@@ -26,6 +27,7 @@ app.use(cors(corsOptions));
 // ROUTES CONFIGURATION
 app.use("/users", userRoutes);
 app.use("/products", productRoutes);
+app.use("/carts", cartRoutes);
 
 mongoose.connect(process.env.MONGODB_STRING);
 
