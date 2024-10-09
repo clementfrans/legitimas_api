@@ -6,6 +6,10 @@ const cors = require("cors");
 // ROUTES
 const userRoutes = require("./routes/user");
 const productRoutes = require("./routes/product");
+<<<<<<< HEAD
+=======
+const cartRoutes = require("./routes/cart");
+>>>>>>> arnilo
 
 // APP
 const app = express();
@@ -24,8 +28,10 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 // ROUTES CONFIGURATION
-app.use("/users", userRoutes);
-app.use("/products", productRoutes);
+app.use(express.json());
+app.use("/user", userRoutes);
+app.use("/product", productRoutes);
+app.use("/cart", cartRoutes);
 
 mongoose.connect(process.env.MONGODB_STRING);
 

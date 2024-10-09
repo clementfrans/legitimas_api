@@ -80,6 +80,7 @@ module.exports.updateProductInfo = (req, res) => {
         .catch((err) => errHandler(err, req, res));
 };
 
+<<<<<<< HEAD
 module.exports.archiveProduct = (req, res) => {
     const { productId } = req.params;
 
@@ -157,3 +158,14 @@ module.exports.activateProduct = (req, res) => {
 
     
 };
+=======
+// module.exports.productFunction03 = (req, res) => {};
+
+// module.exports.productFunction04 = (req, res) => {};
+
+// module.exports.productFunction05 = (req, res) => {};
+
+// module.exports.productFunction06 = (req, res) => {};
+
+// module.exports.productFunction07 = (req, res) => {};
+>>>>>>> arnilo
