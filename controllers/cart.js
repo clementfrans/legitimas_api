@@ -119,43 +119,4 @@ exports.updateProductQuantity = async (req, res) => {
       res.status(500).send({ message: 'Error updating cart', error });
     }
   };
-  
-
-// // UPDATE PRODUCT QUANTITY
-// exports.updateProductQuantity = async (req, res) => {
-//   try {
-//     const userId = getUserIdFromToken(req);
-//     const { productId, quantity, subtotal } = req.body;
-
-//     let cart = await Cart.findOne({ userId });
-
-//     if (!cart) {
-//       return res.status(404).json({ message: "Cart not found" });
-//     }
-
-//     // FIND PRODUCT IN THE CART
-//     const cartItemIndex = cart.cartItems.findIndex(
-//       (item) => item.productId.toString() === productId
-//     );
-
-//     if (cartItemIndex > -1) {
-//       // IF PRODUCT EXISTS, UPDATE QUANTITY AND SUBTOTAL
-//       cart.cartItems[cartItemIndex].quantity = quantity;
-//       cart.cartItems[cartItemIndex].subtotal = subtotal;
-//     } else {
-//       // ADD NEW PRODUCT IF FOUND
-//       cart.cartItems.push({ productId, quantity, subtotal });
-//     }
-
-//     // UPDATE TOTAL PRICE OF THE CART
-//     cart.totalPrice = cart.cartItems.reduce(
-//       (acc, item) => acc + item.subtotal,
-//       0
-//     );
-
-//     await cart.save();
-//     res.status(200).json({ message: "Cart updated", cart });
-//   } catch (error) {
-//     res.status(500).json({ message: "Error updating cart", error });
-//   }
-// };
+ 
