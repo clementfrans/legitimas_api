@@ -13,13 +13,7 @@ router.get("/:productId", productController.getProduct);
 router.patch("/:productId/update", verify, verifyAdmin, productController.updateProductInfo);
 router.patch("/:productId/archive", verify, verifyAdmin, productController.archiveProduct);
 router.patch("/:productId/activate", verify, verifyAdmin, productController.activateProduct);
-router.post("/", verify, verifyAdmin, productController);
-router.get("/all", verify, verifyAdmin, productController);
-router.get("/active", productController);
-router.get("/:productId", productController);
-router.patch("/:productId/update", verify, verifyAdmin, productController);
-router.patch("/:productId/archive", verify, verifyAdmin, productController);
-router.patch("/:productId/activate", verify, verifyAdmin, productController);
+
 
 
 module.exports = router;
