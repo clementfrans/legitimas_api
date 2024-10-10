@@ -11,7 +11,7 @@ router.post("/checkout", verify, orderController.createOrder);
 router.get("/my-orders", verify, orderController.retrieveMyOrder);
 
 // RETRIEVE ALL USER'S ORDERS
-router.get("/checkout", verify, verifyAdmin, orderController.retrieveAllOrders);
+router.get("/all-orders", verify, verifyAdmin, orderController.retrieveAllOrders);
 
 // EXPORT AS MODULE
 module.exports = router;
