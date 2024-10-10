@@ -1,6 +1,6 @@
 // DEPENDENCIES
 const express = require("express");
-const productController = require("../controllers/product");
+const orderController = require("../controllers/orders");
 const { verify, verifyAdmin } = require("../auth");
 const router = express.Router();
 
