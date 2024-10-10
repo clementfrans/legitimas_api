@@ -27,10 +27,14 @@ app.use(cors(corsOptions));
 
 // ROUTES CONFIGURATION
 app.use(express.json());
-app.use("/users", userRoutes);
-app.use("/products", productRoutes);
-app.use("/cart", cartRoutes);
-app.use("/orders", orderRoutes);
+
+// group4 directory
+const groupDirectory = "";
+
+app.use(`${groupDirectory}/users`, userRoutes);
+app.use(`${groupDirectory}/products`, productRoutes);
+app.use(`${groupDirectory}/cart`, cartRoutes);
+app.use(`${groupDirectory}/orders`, orderRoutes);
 
 mongoose.connect(process.env.MONGODB_STRING);
 
