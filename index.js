@@ -29,7 +29,7 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 // group4 directory
-const groupDirectory = "b4";
+const groupDirectory = "/b4";
 
 app.use(`${groupDirectory}/users`, userRoutes);
 app.use(`${groupDirectory}/products`, productRoutes);
