@@ -8,36 +8,28 @@ module.exports.createAccessToken = (user) => {
   const data = {
     id: user._id,
     email: user.email,
-    isAdmin: user.isAdmin,
+    isAdmin: user.isAdmin
   };
   return jwt.sign(data, process.env.JWT_SECRET_KEY, {});
 };
 
 // TOKEN VERIFICATION AND DECRYPTION
 module.exports.verify = (req, res, next) => {
-  console.log(req.headers.authorization);
   let token = req.headers.authorization;
   if (typeof token === "undefined") {
     return res.status(400).send({ auth: "Failed. No Token" });
   } else {
-    console.log(token);
-
     token = token.slice(7, token.length);
-    console.log(token);
 
-    jwt.verify(
-      token, 
-      process.env.JWT_SECRET_KEY, 
-      function (err, decodedToken) {
+    jwt.verify(token, process.env.JWT_SECRET_KEY, function (err, decodedToken) {
       if (err) {
         return res.status(403).send({
           auth: "Failed",
-          message: err.message,
+          message: err.message
         });
       } else {
         console.log("result from verify method:");
         console.log(decodedToken);
-
         req.user = decodedToken;
         req.password = req.body.password;
         next();
@@ -52,7 +44,7 @@ module.exports.verifyAdmin = (req, res, next) => {
   } else {
     return res.status(403).send({
       auth: "Failed",
-      message: "Action Forbidden",
+      message: "Action Forbidden"
     });
   }
 };
@@ -69,8 +61,8 @@ module.exports.errorHandler = (err, req, res, next) => {
       message: errorMessage,
 
       errorCode: err.code || "SERVER ERROR",
-      details: err.details || null,
-    },
+      details: err.details || null
+    }
   });
 };
 

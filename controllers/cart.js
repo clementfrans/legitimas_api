@@ -3,18 +3,11 @@
 // [SECTION] CONTROLLER FOR CART
 const Cart = require("../models/Cart");
 
-// [SECTION] MIDDLEWARE TO GET USERID FROM JWT
-//(mock function, implement your JWT validation logic) 😲🤔
-const getUserIdFromToken = (req) => {
-  // Assuming the userId is stored in req.user after successful JWT validation
-  return req.user.id;
-};
-
 // RETRIEVE CART ✅
 exports.getCart = async (req, res) => {
   try {
     // !! Get userId through JWT Verification
-    const userId = getUserIdFromToken(req);
+    const userId = req.user.id;
 
     // !! User userId to find match cart in the database
     const cart = await Cart.findOne({ userId });
@@ -35,9 +28,8 @@ exports.getCart = async (req, res) => {
 // [SECTION] ADD TO CART ✅
 exports.addToCart = async (req, res) => {
   try {
-    const userId = getUserIdFromToken(req);
-
     const { productId, quantity, subtotal } = req.body;
+    const userId = req.user.id;
 
     let cart = await Cart.findOne({ userId });
 
@@ -70,7 +62,7 @@ exports.addToCart = async (req, res) => {
     await cart.save();
     res.status(200).send({
       message: "Item added to cart successfully",
-      cart,
+      cart
     });
   } catch (error) {
     res.status(500).send({ message: "Error adding to cart", error });
@@ -80,7 +72,7 @@ exports.addToCart = async (req, res) => {
 // UPDATE PRODUCT QUANTITY
 exports.updateProductQuantity = async (req, res) => {
   try {
-    const userId = getUserIdFromToken(req);
+    const userId = req.user.id;
     const { productId, newQuantity } = req.body;
 
     let cart = await Cart.findOne({ userId });
@@ -115,7 +107,7 @@ exports.updateProductQuantity = async (req, res) => {
     await cart.save();
     res.status(200).send({
       message: "Item quantity updated successfully",
-      updatedCart: cart,
+      updatedCart: cart
     });
   } catch (error) {
     res.status(500).send({ message: "Error updating cart", error });
@@ -125,7 +117,7 @@ exports.updateProductQuantity = async (req, res) => {
 // [SECTION] REMOVE ITEM FROM CART
 exports.removeItemFromCart = async (req, res) => {
   try {
-    const userId = getUserIdFromToken(req);
+    const userId = req.user.id;
     const productId = req.params.productId;
 
     // Find the user's cart
@@ -166,7 +158,7 @@ exports.removeItemFromCart = async (req, res) => {
 // [SECTION] CLEAR CART
 exports.clearCart = async (req, res) => {
   try {
-    const userId = getUserIdFromToken(req); // Extract user ID from JWT token
+    const userId = req.user.id; // Extract user ID from JWT token
 
     // Find the user's cart
     let cart = await Cart.findOne({ userId });
