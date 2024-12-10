@@ -15,6 +15,7 @@ module.exports.createAccessToken = (user) => {
 
 // TOKEN VERIFICATION AND DECRYPTION
 module.exports.verify = (req, res, next) => {
+  console.log("middleWare: verify", req.body);
   let token = req.headers.authorization;
   if (typeof token === "undefined") {
     return res.status(400).send({ auth: "Failed. No Token" });
@@ -31,7 +32,7 @@ module.exports.verify = (req, res, next) => {
         console.log("result from verify method:");
         console.log(decodedToken);
         req.user = decodedToken;
-        req.password = req.body.password;
+        console.log("middleWare: verify", req.body);
         next();
       }
     });
@@ -40,6 +41,7 @@ module.exports.verify = (req, res, next) => {
 
 module.exports.verifyAdmin = (req, res, next) => {
   if (req.user.isAdmin) {
+    console.log("middleWare: verifyAdmin", req.body);
     next();
   } else {
     return res.status(403).send({

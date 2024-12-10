@@ -19,14 +19,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // CORS CONFIGURATION
 const corsOptions = {
-  origin: [
-    "http://localhost:8000",
-    "http://localhost:3000",
-    "http://zuitt-bootcamp-prod-481-7885-delossantos.s3-website.us-east-1.amazonaws.com",
-    "https://zuitt-bootcamp-prod-481-7885-delossantos.s3-website.us-east-1.amazonaws.com",
-    "http://zuitt-bootcamp-prod-481-8033-delrosario.s3-website.us-east-1.amazonaws.com",
-    "https://zuitt-bootcamp-prod-481-8033-delrosario.s3-website.us-east-1.amazonaws.com"
-  ],
+  origin: ["*"],
   credentials: true,
   optionsSuccessStatus: 200
 };

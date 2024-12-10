@@ -1,6 +1,7 @@
 // DEPENDENCIES
 const Product = require("../models/Product");
 const { errorHandler } = require("../auth");
+const mongoose = require("mongoose");
 
 // MIDDLEWARES
 // CREATE A PRODUCT (/)
@@ -8,7 +9,7 @@ module.exports.createProduct = (req, res) => {
   let newProduct = new Product({
     name: req.body.name,
     description: req.body.description,
-    price: req.body.price,
+    price: req.body.price
   });
 
   newProduct
@@ -61,50 +62,59 @@ module.exports.getProduct = (req, res) => {
 // temporary comment - franz contribution
 module.exports.updateProductInfo = (req, res) => {
   const { productId } = req.params;
-
   const updateData = req.body;
+
+  if (!mongoose.Types.ObjectId.isValid(productId)) {
+    return res.status(400).send({ error: "Invalid product ID format" });
+  }
 
   return Product.findByIdAndUpdate(productId, updateData, { new: true })
     .then((updatedProduct) => {
       if (!updatedProduct) {
         return res.status(404).send({
-          error: "Product not found",
+          error: "Product not found"
         });
       } else {
         return res.status(200).send({
           success: true,
           message: "Product updated successfully",
+          updatedProduct // Return the updated product data
         });
       }
     })
-    .catch((err) => errHandler(err, req, res));
+    .catch((err) => {
+      console.error(err); // Log error for debugging
+      return res.status(500).send({
+        error: "An unexpected error occurred."
+      });
+    });
 };
 
 module.exports.archiveProduct = (req, res) => {
   const { productId } = req.params;
 
   const updateData = {
-    isActive: false,
+    isActive: false
   };
 
   Product.findById(productId)
     .then((foundProduct) => {
       if (foundProduct === null) {
         return res.status(404).send({
-          error: "Product not found",
+          error: "Product not found"
         });
       } else if (!foundProduct.isActive) {
         return res.status(200).send({
           message: "Product already archived",
-          archivedProduct: foundProduct,
+          archivedProduct: foundProduct
         });
       } else {
         return Product.findByIdAndUpdate(productId, updateData, {
-          new: true,
+          new: true
         }).then(
           res.status(200).send({
             success: true,
-            message: "Product archived successfully",
+            message: "Product archived successfully"
           })
         );
       }
@@ -116,27 +126,27 @@ module.exports.activateProduct = (req, res) => {
   const { productId } = req.params;
 
   const updateData = {
-    isActive: true,
+    isActive: true
   };
 
   Product.findById(productId)
     .then((foundProduct) => {
       if (foundProduct === null) {
         return res.status(404).send({
-          error: "Product not found",
+          error: "Product not found"
         });
       } else if (foundProduct.isActive) {
         return res.status(200).send({
           message: "Product already active",
-          activateProduct: foundProduct,
+          activateProduct: foundProduct
         });
       } else {
         return Product.findByIdAndUpdate(productId, updateData, {
-          new: true,
+          new: true
         }).then(
           res.status(200).send({
             success: true,
-            message: "Product activated successfully",
+            message: "Product activated successfully"
           })
         );
       }
@@ -151,7 +161,7 @@ exports.searchProductByName = async (req, res) => {
 
     // Use a case-insensitive regular expression to find products with matching names
     const products = await Product.find({
-      name: { $regex: new RegExp(name, "i") },
+      name: { $regex: new RegExp(name, "i") }
     });
 
     if (products.length > 0) {
@@ -173,7 +183,7 @@ exports.searchProductByPrice = async (req, res) => {
 
     // Query to find products within the price range
     const products = await Product.find({
-      price: { $gte: minPrice, $lte: maxPrice },
+      price: { $gte: minPrice, $lte: maxPrice }
     });
 
     if (products.length > 0) {

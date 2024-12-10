@@ -1,7 +1,6 @@
 // DEPENDENCIES
 const Order = require("../models/Order");
 const Cart = require("../models/Cart");
-const { verify, verifyAdmin } = require("../auth");
 
 // CREATE  A NEW ORDER
 exports.createOrder = async (req, res) => {
@@ -27,7 +26,7 @@ exports.createOrder = async (req, res) => {
     const newOrder = new Order({
       userId: userId,
       productsOrdered: cart.cartItems,
-      totalPrice: cart.totalPrice,
+      totalPrice: cart.totalPrice
     });
 
     // Save the order
@@ -35,17 +34,18 @@ exports.createOrder = async (req, res) => {
 
     // Optionally, clear the user's cart after order creation
     cart.cartItems = [];
+    cart.totalPrice = 0;
     await cart.save();
 
     return res.status(201).json({
       message: "Order created successfully.",
-      orderDetails: newOrder,
+      orderDetails: newOrder
     });
   } catch (error) {
     // Catch any errors and send to client
     return res.status(500).json({
       message: "An error occurred while creating the order.",
-      errorDetails: error.message,
+      errorDetails: error.message
     });
   }
 };
@@ -67,13 +67,13 @@ exports.retrieveMyOrder = async (req, res) => {
     // Send found orders to client
     return res.status(200).json({
       message: "Orders retrieved successfully.",
-      orders: userOrders,
+      orders: userOrders
     });
   } catch (error) {
     // Catch any errors and send to client
     return res.status(500).json({
       message: "An error occurred while retrieving user's orders.",
-      errorDetails: error.message,
+      errorDetails: error.message
     });
   }
 };
@@ -87,13 +87,13 @@ exports.retrieveAllOrders = async (req, res) => {
     // Send found orders to client
     return res.status(200).json({
       message: "All orders retrieved successfully.",
-      orders: allOrders,
+      orders: allOrders
     });
   } catch (error) {
     // Catch any errors and send to client
     return res.status(500).json({
       message: "An error occurred while retrieving all orders.",
-      errorDetails: error.message,
+      errorDetails: error.message
     });
   }
 };

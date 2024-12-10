@@ -9,6 +9,14 @@ router.get("/get-cart", verify, cartController.getCart);
 
 // ADD ITEMS TO CART
 router.post("/add-to-cart", verify, cartController.addToCart);
+/* 
+if > success cart NOT have products 
+  return 404 - failed
+else if > product not available 
+  return 404 - "product not available"
+else
+  return 202 - sucessfully added to cart
+*/
 
 // UPDATE PRODUCT QUANTITY IN THE CART
 router.patch(
